@@ -14,11 +14,11 @@ bool str_isalnum(const string s)
     return !s.empty() && it == s.end();
 }
 
-Person::Person() 
+Person::Person()
   : username(""), firstname(""), lastname(""), gender(0), age(0), tagline("") {
 }
 
-Person::Person(string _username, string _firstname, string _lastname, 
+Person::Person(string _username, string _firstname, string _lastname,
                int _gender, int _age, string _tagline)
   : username(_username), firstname(_firstname), lastname(_lastname),
     gender(_gender), age(_age), tagline(_tagline) {
@@ -48,14 +48,26 @@ string Person::get_info() {
 }
 
 bool Person::set_username(string _username) {
-    // TODO
-	// write the function for set_username
+  if(_username.length()<=64 && _username.length()>0){
+    if(str_isalpha(_username.front())){
+      bool _containsalpha = false;
+      bool _containsnum = false;
+      bool _isalphanum = true;
+      int i=0;
+      while(i<_username.length() && _isalphanum){
+        _containsalpha = isalpha(_username[i]) || _containsalpha;
+        _containsnum = isdigit(_username[i]) || _containsnum;
+        _isalphanum = isalpha(_username[i]) || isdigit(_username[i]);
+      }
+      if(_containsalpha && _containsnum && _isalphanum) username = _username;
+      return _containsalpha && _containsnum && _isalphanum
+    }
+  }
 	return false;
 }
 
 bool Person::set_firstname(string _firstname) {
-    // TODO
-	if (0/* fill in any necessary tests here */) {
+	if (str_isalpha(_firstname) && _firstname.length()<=64 && _firstname != ' ') {
         firstname = _firstname;
         return true;
     }
@@ -66,8 +78,7 @@ bool Person::set_firstname(string _firstname) {
 
 
 bool Person::set_lastname(string _lastname) {
-    // TODO
-	if (0/* fill in any necessary tests here */) {
+	if (str_isalpha(_lastname) && _lastname.length()<=64 && _lastname != ' ') {
         lastname = _lastname;
         return true;
     }
@@ -77,13 +88,15 @@ bool Person::set_lastname(string _lastname) {
 }
 
 bool Person::set_gender(int _gender){
-    //TODO
+    if(_gender == 1 || _gender ==2){
+      gender = _gender;
+      return true;
+    }
     return false;
 }
 
 bool Person::set_age(int _age) {
-	// TODO
-    if (0/* fill in any necessary tests here */) {
+    if (_age >= 18 && _age<=100) {
         age = _age;
         return true;
     }
@@ -92,8 +105,7 @@ bool Person::set_age(int _age) {
     }
 }
 bool Person::set_tagline(string _tagline) {
-	// TODO
-    if (0/* fill in any necessary tests here */) {
+    if (_tagline.length() <= 128) {
         tagline = _tagline;
         return true;
     }
@@ -105,14 +117,13 @@ bool Person::set_tagline(string _tagline) {
 
 bool Person::set_info(string _username, string _firstname, string _lastname,
                       int _age, string _tagline, int _gender) {
-    // TODO
-	// set the information for
-	// 1) username
-	// 2) firstname
-	// 3) lastnam3
-	// 4) age
-	// 5) tagline
-    // 6) gender
+  if (set_username(_username))
+    if(set_firstname(_firstname))
+      if(set_lastname(lastname))
+        if(set_age(_age))
+          if(set_tagline(_tagline))
+            if(set_gender(_gender))
+              return true
 	return false;
 }
 
@@ -137,4 +148,3 @@ bool Person::read_msg() {
     return false;
 
 }
-
