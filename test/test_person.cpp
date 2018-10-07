@@ -10,25 +10,45 @@ protected:
 
 // test get_username and set_username
 TEST_F(test_person, test_username) {
+	// Char Limit
+	EXPECT_FALSE(person.set_username("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"));
+	EXPECT_TRUE(person.set_username("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"));
+ 	EXPECT_STREQ(person.get_username().c_str(), "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl");
+
+	// Alphanumeric Rules
+	EXPECT_TRUE(person.set_username("abcdefg0"));
+	EXPECT_STREQ(person.get_username().c_str(), "abcdefg0");
+	EXPECT_FALSE(person.set_username("0abcdefg"));
+	EXPECT_FALSE(person.set_username("abcdefg"));
+	EXPECT_FALSE(person.set_username("0123456"));
+	EXPECT_FALSE(person.set_username(""));
 }
 
 // test get_firstname and set_firstname
 TEST_F(test_person, test_firstname) {
+	// Char Limit
+	EXPECT_FALSE(person.set_firstname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"));
+	EXPECT_TRUE(person.set_firstname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"));
+ 	EXPECT_STREQ(person.get_firstname().c_str(), "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl");
+
+	// Alphanumeric Rules
+	EXPECT_FALSE(person.set_firstname("abcdefg0"));
+	EXPECT_FALSE(person.set_firstname("abcdefg;"));
+	EXPECT_FALSE(person.set_firstname(""));
 }
 
 // test get_lastname and set_lastname
 TEST_F(test_person, test_lastname) {
- 	EXPECT_FALSE(person.set_lastname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"));
+	// Char Limit
+	EXPECT_FALSE(person.set_lastname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklm"));
 	EXPECT_TRUE(person.set_lastname("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl"));
  	EXPECT_STREQ(person.get_lastname().c_str(), "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl");
+
+	// Alphanumeric Rules
 	EXPECT_FALSE(person.set_lastname("abcdefg0"));
 	EXPECT_FALSE(person.set_lastname("abcdefg;"));
 	EXPECT_FALSE(person.set_lastname(""));
 }
-
-/**you may need to write more test functions.
- *  What we provide here is just for your reference
- */
 
 // test get_age and set_age
 //   test_person is the name of class your inherit from the base Test class
@@ -40,14 +60,22 @@ TEST_F(test_person, test_lastname) {
 //   avoid using ASSERT_FALSE here; if there is something wrong in ASSERT,
 //   it will abort the whole testing which will hinder the grading process
 TEST_F(test_person, test_age) {
+	// Edge Cases
 	EXPECT_FALSE(person.set_age(-1));
+	EXPECT_FALSE(person.set_age(17));
+	EXPECT_FALSE(person.set_age(101));
+	EXPECT_FALSE(person.set_age(25.1));
+	EXPECT_FALSE(person.set_age(NULL));
+
+	// Truth
 	EXPECT_TRUE(person.set_age(18));
 	EXPECT_EQ(person.get_age(), 18);
-	EXPECT_FALSE(person.set_age(149));
 }
 
 //test get_gender and set_gender
 TEST_F(test_person,test_gender){
+	// Edge Cases
+	EXPECT_TRUE(person.set_gender(""))
 }
 
 // test get_tagline and set_tagline
@@ -65,4 +93,3 @@ TEST_F(test_person, test_info) {
 //   can also separate them into several test cases
 TEST_F(test_person, test_msg) {
 }
-

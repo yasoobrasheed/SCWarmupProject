@@ -123,7 +123,7 @@ bool Person::set_info(string _username, string _firstname, string _lastname,
         if(set_age(_age))
           if(set_tagline(_tagline))
             if(set_gender(_gender))
-              return true
+              return true;
 	return false;
 }
 
