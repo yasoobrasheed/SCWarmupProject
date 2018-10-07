@@ -43,7 +43,8 @@ string Person::get_tagline() {
     return tagline;
 }
 string Person::get_info() {
-	string ret = "";
+	  string ret = "";
+    ret = ret+get_username()+get_firstname()+get_lastname()+get_gender()+get_age()+get_tagline();
     return ret;
 }
 
