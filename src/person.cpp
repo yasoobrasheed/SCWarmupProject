@@ -123,28 +123,40 @@ bool Person::set_info(string _username, string _firstname, string _lastname,
         if(set_age(_age))
           if(set_tagline(_tagline))
             if(set_gender(_gender))
-              return true
+              return true;
 	return false;
 }
 
 bool Person::send_msg(Person &recipient, string msg) {
 	// TODO
 	// send message
+  if(get_msgstat(recipient)<10){
+    recipient.getmsg(msg);
+    return true;
+  }
 	return false;
 }
 
 void Person::get_msg(string msg) {
 	// TODO
 	// get message
+  inbox.push(msg);
+  msg_stat['size']++;
 }
 
 int Person::get_msgstat(Person recipient){
-	return 0;
+  int size = recipient.msg_stat['size'];
+  return size;
 }
 
 bool Person::read_msg() {
 	// TODO
 	// print the message if there any message inbox
-    return false;
-
+  if(inbox.size()=0) return false;
+  while(inbox.size()>0) {
+    msg = inbox.pop();
+    printf("%s\n", msg);
+    msg_stat['size']--;
+  }
+  return true;
 }
