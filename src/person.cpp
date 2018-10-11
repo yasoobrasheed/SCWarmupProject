@@ -131,8 +131,8 @@ bool Person::set_info(string _username, string _firstname, string _lastname,
 bool Person::send_msg(Person &recipient, string msg) {
 	// TODO
 	// send message
-  if(get_msgstat(recipient)<10){
-    recipient.getmsg(msg);
+  if(recipeint.get_msgstat(this)<11){
+    recipient.get_msg_with_info(msg, this);
     return true;
   }
 	return false;
@@ -146,7 +146,7 @@ void Person::get_msg(string msg) {
 }
 
 int Person::get_msgstat(Person recipient){
-  int size = recipient.msg_stat['size'];
+  int size = msg_stat[recipeint.get_username()];
   return size;
 }
 
@@ -155,9 +155,14 @@ bool Person::read_msg() {
 	// print the message if there any message inbox
   if(inbox.size()=0) return false;
   while(inbox.size()>0) {
-    msg = inbox.pop();
-    printf("%s\n", msg);
-    msg_stat['size']--;
+    pair<string, Person*> msg = inbox_stat.pop();
+    printf("%s\n", msg->first);
+    msg_stat[msg->second]--;
   }
   return true;
+}
+void Person::get_msg_with_info (string msg, Person* sender){
+  pair<string, Person*> tmp (msg, sender);
+  inbox_stat.push(tmp);
+  msg_stat[sender.get_username()]++;
 }
