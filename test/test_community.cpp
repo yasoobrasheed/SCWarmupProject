@@ -13,6 +13,7 @@ protected:
 
 // test get_name
 TEST_F(test_community, get_name) {
+    // BLAH BLAH BLAH FOR TEST
 }
 
 // test set_name
