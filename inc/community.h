@@ -37,18 +37,17 @@ class Community {
 
     // find users with a certain first name
     list<Person> find_member(string firstname);
-    
+
     // find users within certain age range
     list<Person> find_member(int age_lb, int age_ub);
 
     // return the person object for a given username
     Person& get_member(string username);
-    
+
     // send msg to a Person addressed by username
     // make sure the username is validated
     bool send_msg(list<string> usernames, string msg);
-    
+
 };
 
 #endif /* COMMUNITY_H */
-
