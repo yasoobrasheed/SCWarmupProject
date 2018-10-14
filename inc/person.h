@@ -23,15 +23,15 @@ class Person {
     // when a message is retrieved, delete it immediately
     queue<string> inbox;
     // store received messages
-    // similar as inbox, except also recording sender 
+    // similar as inbox, except also recording sender
     // when a message is retrieved, delete it immediately
-    queue<pair<string,Person> > inbox_stat;    
+    queue< pair<string, Person*>> inbox_stat;
   public:
-   
+
     // record how many messages have been received from others
-    map<string,int> msg_stat;      
+    map<string,int> msg_stat;
     Person();
-    Person(string _username, string _firstname, string _lastname, 
+    Person(string _username, string _firstname, string _lastname,
            int _gender, int _age, string _tagline);
 
     string get_username();
@@ -55,10 +55,10 @@ class Person {
     void get_msg(string msg);
     int  get_msgstat(Person recipient); //return how many unread messages from recipent in inbox
     bool read_msg(); //return value indicates whether the inbox is empty or not
+    void get_msg_with_info (string msg, Person* sender); //the recipient receives messages from the sender
 };
 
 bool str_isalpha(const string str);
 bool str_isalnum(const string str);
 
 #endif /* COMMUNITY_H */
-

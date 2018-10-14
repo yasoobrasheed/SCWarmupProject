@@ -97,17 +97,14 @@ bool Community::send_msg(list<string> usernames, string msg) {
     // send to every username, even if one is invalid
     // still return false if the above case is in effect
   list<string>::iterator it1;
+  bool allvalid = true;
   for(it1 = usernames.begin(); it1!= usernames.end(); it1++){
-    list<Person> peoples = find_member(it1 -> first);
-    list<Person>::iterator it2;
-    if(!peoples.empty()){
-      for(it2 = peoples.begin(); it2!=peoples.end(); it2++){
-        it2-> first.get_msg(msg);
-      }
+    if(people.find(username)!= people.end()){
+      people.get_member(username).get_msg(msg);
     }
     else{
-      return false
+      allvalid = false;
     }
   }
-	return true;
+	return allvalid;
 }
